@@ -1,5 +1,6 @@
 import { useEffect, useRef, useCallback } from 'react';
-import { Direction } from './useSnakeGame';
+import type { RefObject } from 'react';
+import type { Direction } from './useSnakeGame';
 
 interface SwipeHandlers {
   onSwipeUp?: () => void;
@@ -9,7 +10,7 @@ interface SwipeHandlers {
 }
 
 export function useSwipe(
-  elementRef: React.RefObject<HTMLElement | null>,
+  elementRef: RefObject<HTMLElement | null>,
   handlers: SwipeHandlers,
   minDistance: number = 30
 ) {
@@ -61,16 +62,4 @@ export function useSwipe(
       el.removeEventListener('touchend', handleTouchEnd);
     };
   }, [elementRef, handleTouchStart, handleTouchEnd]);
-}
-
-export function getDirectionFromSwipe(
-  swipeDirection: 'up' | 'down' | 'left' | 'right'
-): Direction {
-  const map: Record<string, Direction> = {
-    up: 'UP',
-    down: 'DOWN',
-    left: 'LEFT',
-    right: 'RIGHT',
-  };
-  return map[swipeDirection];
 }
